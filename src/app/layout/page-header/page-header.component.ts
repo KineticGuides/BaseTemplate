@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-page-header',
@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.css'
 })
-export class PageHeaderComponent {
+export class PageHeaderComponent implements OnInit  {
+    @Input() data: any;
+
+    ngOnInit(): void {
+      console.log(this.data)
+    }
 
 }

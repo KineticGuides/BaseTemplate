@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from './data.service'; 
 import { catchError, of } from 'rxjs';
@@ -18,7 +19,7 @@ export class ResolverService {
     id3: '' 
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private http: HttpClient) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
@@ -31,15 +32,14 @@ export class ResolverService {
       this.p.q = state.url;
     }
 
-    this.r=this.dataService.getData(this.p).pipe(catchError(err=> 
+    this.r=this.dataService.getPage(this.p).pipe(catchError(err=> 
       { 
         console.log(err);
         return of(null);
       }));
       console.log(this.r);
     return (this.r)
-
-    
+        
   }
 
 }
